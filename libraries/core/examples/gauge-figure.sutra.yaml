@@ -1,0 +1,13 @@
+# Copyright (c) 2026 Ashutosh Sinha <ajsinha@gmail.com>. All rights reserved.
+# Drishti Rachana Libraries. Proprietary: see the LICENSE file at the root of this repository.
+# Synthetic demo content.
+rachana: 1
+sutra: gauge-figure-example
+version: 1
+libraries: [core@1]
+title: { id: "'Gauge figure'" }
+data:
+  disk: { record: { USED_GB: 640, SIZE_GB: 800 } }
+panels:
+  - use: core/gauge-figure@1
+    with: { value: "$.disk.USED_GB", max: "$.disk.SIZE_GB", label: Disk used }

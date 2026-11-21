@@ -1,0 +1,29 @@
+# Copyright (c) 2026 Ashutosh Sinha <ajsinha@gmail.com>. All rights reserved.
+# Drishti Rachana Libraries. Proprietary: see the LICENSE file at the root of this repository.
+rachana: 1
+fragment: distribution
+version: 1
+doc:
+  summary: A histogram of one numeric column, with an optional marked value.
+  description: >-
+    Give the values (pluck them from a table) and how many bins. Mark one value, such as a mean or a threshold, with
+    its label.
+  category: charts
+  tags: [histogram, distribution, spread]
+params:
+  values:       { type: "list<number>", required: true, doc: The values to count into bins }
+  title:        { type: text, default: Distribution, doc: The panel's title }
+  bins:         { type: integer, default: 40, min: 2, max: 200, doc: How many bins }
+  marker:       { type: number, optional: true, doc: A value to mark, such as a mean or a threshold }
+  marker-label: { type: text, default: Marker, doc: What the marked value is called }
+  fmt:          { type: format, default: compact, doc: How the values are written }
+  unit:         { type: text, default: "", doc: The unit, written beside the values }
+panels:
+  - id: histogram
+    kind: histogram
+    title: arg.title
+    rows: arg.values
+    bins: arg.bins
+    markers: [ { label: arg.marker-label, value: arg.marker } ]
+    fmt: "%{fmt}"
+    unit: arg.unit

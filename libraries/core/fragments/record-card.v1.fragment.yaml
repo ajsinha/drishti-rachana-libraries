@@ -1,0 +1,30 @@
+# Copyright (c) 2026 Ashutosh Sinha <ajsinha@gmail.com>. All rights reserved.
+# Drishti Rachana Libraries. Proprietary: see the LICENSE file at the root of this repository.
+rachana: 1
+fragment: record-card
+version: 1
+doc:
+  summary: A record as a card, with its name, a line under it, chosen facts and a status.
+  description: >-
+    The record carries name, an optional subtitle and an optional status (build it with a record literal from your own
+    fields). The facts are the fields you list, each a label and an expression over the record. Panels of your own can
+    go under the card.
+  category: records
+  tags: [record, card, entity]
+params:
+  record: { type: "record{name: text, subtitle: text, status: text}", required: true, doc: "The card's head: name, subtitle, status" }
+  facts:  { type: columns, required: true, doc: "The facts: a list of { label, bind: \"@.field\", fmt } over the same record" }
+slots:
+  footer: { accepts: panels, max: 2, doc: Panels under the card }
+panels:
+  - id: card
+    kind: kv
+    title: "${arg.record.name}"
+    description: "${coalesce(arg.record.subtitle, '')}"
+    rows: arg.record
+    columns: "%{facts}"
+  - id: state
+    kind: status
+    when: "!is_blank(arg.record.status)"
+    fields: [ { label: Status, bind: "arg.record.status" } ]
+  - { slot: footer }

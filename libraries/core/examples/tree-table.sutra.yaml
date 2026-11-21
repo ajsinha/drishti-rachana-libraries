@@ -1,0 +1,20 @@
+# Copyright (c) 2026 Ashutosh Sinha <ajsinha@gmail.com>. All rights reserved.
+# Drishti Rachana Libraries. Proprietary: see the LICENSE file at the root of this repository.
+# Synthetic demo content.
+rachana: 1
+sutra: tree-table-example
+version: 1
+libraries: [core@1]
+title: { id: "'Tree table'" }
+data:
+  units:
+    rows:
+      - { UNIT: HQ, PARENT_UNIT: "", UNIT_NAME: Head office, STAFF: 40 }
+      - { UNIT: OPS, PARENT_UNIT: HQ, UNIT_NAME: Operations, STAFF: 120 }
+      - { UNIT: FIN, PARENT_UNIT: HQ, UNIT_NAME: Finance, STAFF: 60 }
+      - { UNIT: OPS1, PARENT_UNIT: OPS, UNIT_NAME: Operations north, STAFF: 70 }
+panels:
+  - use: core/tree-table@1
+    with:
+      title: Organisation
+      rows: { from: $.units, columns: { id: UNIT, parent: PARENT_UNIT, name: UNIT_NAME } }

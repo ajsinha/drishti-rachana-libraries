@@ -1,0 +1,36 @@
+# Copyright (c) 2026 Ashutosh Sinha <ajsinha@gmail.com>. All rights reserved.
+# Drishti Rachana Libraries. Proprietary: see the LICENSE file at the root of this repository.
+rachana: 1
+fragment: steps-waterfall
+version: 1
+doc:
+  summary: From a starting total to an ending total through signed steps.
+  description: >-
+    One row per step in order. A step with total set to true restarts the running figure at that value (an opening or a
+    subtotal); the others add to it. The closing figure is drawn last.
+  category: charts
+  tags: [waterfall, bridge, steps]
+params:
+  rows:
+    type: table
+    required: true
+    doc: One row per step, in order
+    columns:
+      label: { type: text,    doc: The step's name }
+      value: { type: number,  doc: The step's amount; gains positive }
+      total: { type: boolean, optional: true, doc: True where the value is a total rather than a step }
+  title:     { type: text, default: Bridge, doc: The panel's title }
+  fmt:       { type: format, default: signed0, doc: How the amounts are written }
+  unit:      { type: text, default: "", doc: The unit, written beside the amounts }
+  sum-label: { type: text, default: Total, doc: What the closing figure is called }
+panels:
+  - id: bridge
+    kind: waterfall
+    title: arg.title
+    rows: "map(arg.rows, {label: @.label, value: @.value, total: @.total})"
+    label: label
+    value: value
+    total: total
+    sum: arg.sum-label
+    fmt: "%{fmt}"
+    unit: arg.unit

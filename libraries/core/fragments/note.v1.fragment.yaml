@@ -1,0 +1,14 @@
+# Copyright (c) 2026 Ashutosh Sinha <ajsinha@gmail.com>. All rights reserved.
+# Drishti Rachana Libraries. Proprietary: see the LICENSE file at the root of this repository.
+rachana: 1
+fragment: note
+version: 1
+doc:
+  summary: A short note telling the reader how to read the figures beside it.
+  description: Text only, never markup. Put it next to a chart or table whose units or sign convention need a word.
+  category: records
+  tags: [note, explainer, text]
+params:
+  text: { type: text, required: true, doc: The note }
+panels:
+  - { id: note, kind: markdown, text: arg.text }

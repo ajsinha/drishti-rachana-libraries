@@ -1,0 +1,21 @@
+# Copyright (c) 2026 Ashutosh Sinha <ajsinha@gmail.com>. All rights reserved.
+# Drishti Rachana Libraries. Proprietary: see the LICENSE file at the root of this repository.
+rachana: 1
+fragment: alert-banner
+version: 1
+doc:
+  summary: A line across the screen, shown only while its condition holds.
+  description: >-
+    Give the condition and the words (fixed text, as written). Nothing is drawn while the condition is false. For a
+    figure in the message, put a key-figure beside it.
+  category: states
+  tags: [alert, banner, warning]
+params:
+  show:   { type: boolean, required: true, doc: Whether the banner is shown }
+  text:   { type: text, required: true, doc: The words of the banner }
+  label:  { type: text, default: Notice, doc: The word that heads the banner }
+panels:
+  - id: banner
+    kind: status
+    when: arg.show
+    fields: [ { label: arg.label, bind: "'' + arg.text" } ]

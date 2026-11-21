@@ -1,0 +1,49 @@
+# Copyright (c) 2026 Ashutosh Sinha <ajsinha@gmail.com>. All rights reserved.
+# Drishti Rachana Libraries. Proprietary: see the LICENSE file at the root of this repository.
+rachana: 1
+fragment: version-diff
+version: 1
+doc:
+  summary: Rows added, removed and changed between two versions of a keyed table.
+  description: >-
+    Give the two versions, the key that identifies a row and the columns to show. Three tables follow: the rows only
+    in the new version, the rows only in the old one, and the rows whose key is in both but whose values differ (the
+    new values are shown).
+  category: history
+  tags: [diff, versions, compare]
+params:
+  before:
+    type: table
+    required: true
+    doc: The old version
+    max-rows: 20000
+    columns:
+      key: { type: text, doc: The column that identifies a row }
+  after:
+    type: table
+    required: true
+    doc: The new version, with the same columns
+    max-rows: 20000
+    columns:
+      key: { type: text, doc: The column that identifies a row }
+  columns: { type: columns, required: true, doc: "The columns to show: a list of { label, bind: \"@.field\", fmt }" }
+  title:   { type: text, default: Changes, doc: The title of the three tables }
+panels:
+  - id: added
+    kind: table
+    title: "${arg.title} - added"
+    rows: "arg.after[?!(@.key in arg.before[*].key)]"
+    empty: Nothing added
+    columns: "%{columns}"
+  - id: removed
+    kind: table
+    title: "${arg.title} - removed"
+    rows: "arg.before[?!(@.key in arg.after[*].key)]"
+    empty: Nothing removed
+    columns: "%{columns}"
+  - id: changed
+    kind: table
+    title: "${arg.title} - changed"
+    rows: "intersect(difference(arg.after, arg.before), arg.after[?@.key in arg.before[*].key])"
+    empty: Nothing changed
+    columns: "%{columns}"

@@ -1,0 +1,38 @@
+# Copyright (c) 2026 Ashutosh Sinha <ajsinha@gmail.com>. All rights reserved.
+# Drishti Rachana Libraries. Proprietary: see the LICENSE file at the root of this repository.
+rachana: 1
+fragment: audit-trail
+version: 1
+doc:
+  summary: "Who changed what and when: actor, time, field, the value before and after."
+  description: One row per change, newest first as given.
+  category: history
+  tags: [audit, changes, history]
+params:
+  rows:
+    type: table
+    required: true
+    doc: One row per change
+    columns:
+      at:     { type: datetime, doc: When the change was made }
+      actor:  { type: text, doc: Who made it }
+      action: { type: text, doc: What was done }
+      field:  { type: text, optional: true, doc: The field that changed }
+      before: { optional: true, doc: The value before }
+      after:  { optional: true, doc: The value after }
+  title: { type: text, default: Changes, doc: The panel's title }
+  limit: { type: integer, default: 100, min: 1, max: 5000, doc: The most changes shown }
+panels:
+  - id: audit
+    kind: table
+    title: arg.title
+    rows: arg.rows
+    limit: arg.limit
+    search: true
+    columns:
+      - { label: When, bind: "@.at" }
+      - { label: Who, bind: "@.actor" }
+      - { label: Action, bind: "@.action" }
+      - { label: Field, bind: "@.field" }
+      - { label: Before, bind: "@.before" }
+      - { label: After, bind: "@.after" }

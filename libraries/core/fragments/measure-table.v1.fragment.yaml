@@ -1,0 +1,36 @@
+# Copyright (c) 2026 Ashutosh Sinha <ajsinha@gmail.com>. All rights reserved.
+# Drishti Rachana Libraries. Proprietary: see the LICENSE file at the root of this repository.
+rachana: 1
+fragment: measure-table
+version: 1
+doc:
+  summary: A list as a table - a name and two measures, the first totalled, the second toned by sign.
+  description: >-
+    The simplest comparison table: one row per name, a measure and an optional change beside it. The second measure is
+    left out when the table has no such column.
+  category: tables
+  tags: [table, measure, change]
+params:
+  rows:
+    type: table
+    required: true
+    doc: One row per name
+    columns:
+      name:   { type: text,   doc: The row's name }
+      first:  { type: number, doc: The main measure }
+      second: { type: number, optional: true, doc: A second measure, such as the change }
+  title:        { type: text, default: Measures, doc: The panel's title }
+  name-label:   { type: text, default: Name, doc: Heading of the name column }
+  first-label:  { type: text, default: Value, doc: Heading of the first measure }
+  first-fmt:    { type: format, default: amount0, doc: How the first measure is written }
+  second-label: { type: text, default: Change, doc: Heading of the second measure }
+  second-fmt:   { type: format, default: signed2, doc: How the second measure is written }
+panels:
+  - id: table
+    kind: table
+    title: arg.title
+    rows: arg.rows
+    columns:
+      - { label: arg.name-label, bind: "@.name" }
+      - { label: arg.first-label, bind: "@.first", fmt: "%{first-fmt}", total: true }
+      - { label: arg.second-label, bind: "@.second", fmt: "%{second-fmt}", tone: sign }

@@ -1,0 +1,1 @@
+{"contract":"1.0","keys":[],"panels":[{"area":"main","data":{"fields":[{"label":"Limit breached","text":"Used is above the limit; reduce exposure or ask for an increase"}]},"empty":false,"id":"over-banner","inferred":false,"kind":"status"}],"strip":[],"title":{"id":"Alert banner","pill":null,"with":null}}

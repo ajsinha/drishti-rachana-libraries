@@ -1,0 +1,1 @@
+{"contract":"1.0","keys":[],"panels":[{"area":"main","data":{"fields":[{"label":"Name","text":"Alder Ltd"},{"label":"Segment","text":"Retail"},{"label":"Limit","text":"250,000"}]},"empty":false,"id":"facts","inferred":false,"kind":"kv","title":"Customer"}],"strip":[],"title":{"id":"Field list","pill":null,"with":null}}

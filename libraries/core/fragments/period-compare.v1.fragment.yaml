@@ -1,0 +1,30 @@
+# Copyright (c) 2026 Ashutosh Sinha <ajsinha@gmail.com>. All rights reserved.
+# Drishti Rachana Libraries. Proprietary: see the LICENSE file at the root of this repository.
+rachana: 1
+fragment: period-compare
+version: 1
+doc:
+  summary: One measure now against the same measure in a reference period, with the change.
+  description: >-
+    The figure now, the change against the reference and the reference itself in the caption. The change is toned by its sign;
+    pass a fixed tone where down is the good direction (a cost).
+  category: figures
+  tags: [compare, period, change]
+params:
+  now:        { type: number, required: true, doc: The measure now }
+  then:       { type: number, required: true, doc: The same measure in the reference period }
+  label:      { type: text, default: Now, doc: What the measure is }
+  then-label: { type: text, default: Before, doc: What the reference period is called }
+  fmt:        { type: format, default: amount0, doc: How the measure is written }
+  delta-fmt:  { type: format, default: signed0, doc: How the change is written }
+  delta-tone: { type: enum, options: [sign, pos, neg, ok, warn, bad, accent], default: sign, doc: "How the change is toned: sign (up is good) or a fixed tone" }
+panels:
+  - id: compare
+    kind: metric
+    label: arg.label
+    value: arg.now
+    fmt: "%{fmt}"
+    delta: arg.now - arg.then
+    deltaFmt: "%{delta-fmt}"
+    deltaTone: "%{delta-tone}"
+    caption: "${fmt(arg.then, '%{fmt}')} ${arg.then-label}"

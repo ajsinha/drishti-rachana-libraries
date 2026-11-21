@@ -1,0 +1,22 @@
+# Copyright (c) 2026 Ashutosh Sinha <ajsinha@gmail.com>. All rights reserved.
+# Drishti Rachana Libraries. Proprietary: see the LICENSE file at the root of this repository.
+# Synthetic demo content.
+rachana: 1
+sutra: distribution-example
+version: 1
+libraries: [core@1]
+title: { id: "'Distribution'" }
+data:
+  orders:
+    rows: [ { AMT: 12 }, { AMT: 18 }, { AMT: 25 }, { AMT: 31 }, { AMT: 33 }, { AMT: 35 }, { AMT: 41 }, { AMT: 44 }, { AMT: 62 }, { AMT: 90 } ]
+panels:
+  - use: core/distribution@1
+    with:
+      title: Order size
+      values: "$.orders[*].AMT"
+      bins: 6
+      marker: "avg($.orders, 'AMT')"
+      marker-label: Mean
+  - use: core/distribution@1
+    as: plain
+    with: { values: "$.orders[*].AMT", bins: 4 }

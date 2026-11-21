@@ -1,0 +1,29 @@
+# Copyright (c) 2026 Ashutosh Sinha <ajsinha@gmail.com>. All rights reserved.
+# Drishti Rachana Libraries. Proprietary: see the LICENSE file at the root of this repository.
+rachana: 1
+fragment: drill-table
+version: 1
+doc:
+  summary: A table that groups its rows by a list of levels, outermost first, and opens down them in place.
+  description: >-
+    Name the level columns of your rows, outermost first, and give the columns to show: the level columns and the
+    measures. A measure column marked total is added up for each group.
+  category: tables
+  tags: [table, drill, group, levels]
+params:
+  rows:
+    type: table
+    required: true
+    doc: Rows holding every level column and measure
+    columns:
+      key: { type: text, optional: true, doc: "A key column, when the rows have one" }
+  levels:  { type: columns, required: true, doc: "The columns that group the rows, outermost first: a list of your own column names" }
+  columns: { type: columns, required: true, doc: "The columns: the levels and the measures, each { label, bind: \"@.field\", fmt, total }" }
+  title:   { type: text, default: Drill, doc: The panel's title }
+panels:
+  - id: drill
+    kind: grid
+    title: arg.title
+    rows: arg.rows
+    group: "%{levels}"
+    columns: "%{columns}"

@@ -1,0 +1,20 @@
+# Copyright (c) 2026 Ashutosh Sinha <ajsinha@gmail.com>. All rights reserved.
+# Drishti Rachana Libraries. Proprietary: see the LICENSE file at the root of this repository.
+# Synthetic demo content.
+rachana: 1
+sutra: version-diff-example
+version: 1
+libraries: [core@1]
+title: { id: "'Version diff'" }
+data:
+  limits_yesterday:
+    rows: [ { LIMIT_ID: L1, DESK: FX, LIMIT_USD: 100 }, { LIMIT_ID: L2, DESK: Rates, LIMIT_USD: 200 }, { LIMIT_ID: L3, DESK: Credit, LIMIT_USD: 50 } ]
+  limits_today:
+    rows: [ { LIMIT_ID: L1, DESK: FX, LIMIT_USD: 120 }, { LIMIT_ID: L2, DESK: Rates, LIMIT_USD: 200 }, { LIMIT_ID: L4, DESK: Equities, LIMIT_USD: 75 } ]
+panels:
+  - use: core/version-diff@1
+    with:
+      title: Limits
+      before: { from: $.limits_yesterday, columns: { key: LIMIT_ID } }
+      after: { from: $.limits_today, columns: { key: LIMIT_ID } }
+      columns: [ { label: Limit, bind: "@.LIMIT_ID" }, { label: Desk, bind: "@.DESK" }, { label: Amount, bind: "@.LIMIT_USD", fmt: amount0 } ]

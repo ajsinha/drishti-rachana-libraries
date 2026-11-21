@@ -1,0 +1,17 @@
+# Copyright (c) 2026 Ashutosh Sinha <ajsinha@gmail.com>. All rights reserved.
+# Drishti Rachana Libraries. Proprietary: see the LICENSE file at the root of this repository.
+# Synthetic demo content.
+rachana: 1
+sutra: audit-trail-example
+version: 1
+libraries: [core@1]
+title: { id: "'Audit trail'" }
+data:
+  audit:
+    rows:
+      - { CHANGED_AT: "2026-01-12T10:15:00", CHANGED_BY: m.jones, CHANGE: Update, COLUMN_NAME: limit, OLD_VALUE: 100, NEW_VALUE: 150 }
+      - { CHANGED_AT: "2026-01-10T09:00:00", CHANGED_BY: a.smith, CHANGE: Create }
+panels:
+  - use: core/audit-trail@1
+    with:
+      rows: { from: $.audit, columns: { at: CHANGED_AT, actor: CHANGED_BY, action: CHANGE, field: COLUMN_NAME, before: OLD_VALUE, after: NEW_VALUE } }

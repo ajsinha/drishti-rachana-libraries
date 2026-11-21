@@ -1,0 +1,24 @@
+# Copyright (c) 2026 Ashutosh Sinha <ajsinha@gmail.com>. All rights reserved.
+# Drishti Rachana Libraries. Proprietary: see the LICENSE file at the root of this repository.
+# Synthetic demo content.
+rachana: 1
+sutra: row-picker-example
+version: 1
+libraries: [core@1]
+title: { id: "'Row picker'" }
+data:
+  customers:
+    key: CUSTOMER_ID
+    rows:
+      - { CUSTOMER_ID: C1, CUSTOMER_NAME: Alder Ltd, SEGMENT: Retail, BALANCE: 1200, SINCE: "2019-04-01" }
+      - { CUSTOMER_ID: C2, CUSTOMER_NAME: Birch Co, SEGMENT: Wholesale, BALANCE: 800, SINCE: "2021-09-15" }
+panels:
+  - use: core/row-picker@1
+    as: customers
+    with:
+      title: Customers
+      rows: { from: $.customers, columns: { id: CUSTOMER_ID, name: CUSTOMER_NAME, type: SEGMENT, amount: BALANCE, date: SINCE } }
+      type-label: Segment
+      amount-label: Balance
+      date-label: Customer since
+  - { id: chosen, kind: markdown, text: "Chosen: ${@customers.select.id}", waits: customers-picker }

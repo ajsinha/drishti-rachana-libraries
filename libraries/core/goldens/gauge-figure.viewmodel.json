@@ -1,0 +1,1 @@
+{"contract":"1.0","keys":[],"panels":[{"area":"main","data":{"label":"Disk used","max":800.0,"text":"80%","value":640.0},"empty":false,"id":"gauge","inferred":false,"kind":"gauge"}],"strip":[],"title":{"id":"Gauge figure","pill":null,"with":null}}

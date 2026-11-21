@@ -1,0 +1,1 @@
+{"contract":"1.0","keys":[],"panels":[{"area":"main","data":{"fields":[{"label":"Status","path":"$.order.STATE","text":"Confirmed"},{"label":"Approval","path":"$.order.APPROVAL","text":"Pending"}]},"empty":false,"id":"badges","inferred":false,"kind":"status"}],"strip":[],"title":{"id":"Status badges","pill":null,"with":null}}

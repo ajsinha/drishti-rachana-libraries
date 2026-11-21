@@ -1,0 +1,22 @@
+# Copyright (c) 2026 Ashutosh Sinha <ajsinha@gmail.com>. All rights reserved.
+# Drishti Rachana Libraries. Proprietary: see the LICENSE file at the root of this repository.
+rachana: 1
+fragment: field-list
+version: 1
+doc:
+  summary: The facts of one record as label and value.
+  description: >-
+    The plain facts panel. Give the record and the fields to show: each is a label and the expression over the record
+    (@.name) that gives its value, with an optional format.
+  category: records
+  tags: [record, facts, kv]
+params:
+  record: { type: "record{}", required: true, doc: The record whose facts are shown }
+  fields: { type: columns, required: true, doc: "The facts: a list of { label, bind: \"@.field\", fmt }" }
+  title:  { type: text, default: Facts, doc: The panel's title }
+panels:
+  - id: facts
+    title: arg.title
+    kind: kv
+    rows: arg.record
+    columns: "%{fields}"

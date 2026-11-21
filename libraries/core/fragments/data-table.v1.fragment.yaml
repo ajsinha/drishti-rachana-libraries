@@ -1,0 +1,30 @@
+# Copyright (c) 2026 Ashutosh Sinha <ajsinha@gmail.com>. All rights reserved.
+# Drishti Rachana Libraries. Proprietary: see the LICENSE file at the root of this repository.
+rachana: 1
+fragment: data-table
+version: 1
+doc:
+  summary: A sortable, searchable table of rows with the columns you give, totals and a row event.
+  category: tables
+params:
+  rows:
+    type: table
+    required: true
+    doc: The rows
+    key: optional
+    columns:
+      key: { type: text, optional: true, doc: "A key column, when the rows have one" }
+  columns:     { type: columns, required: true, doc: "The columns: label, bind over a row as @.name, fmt, total" }
+  title:       { type: text, default: Table, doc: The panel's title }
+  search:      { type: boolean, default: true, doc: Whether the reader can search the rows }
+  limit:       { type: integer, default: 200, min: 1, max: 5000, doc: The most rows drawn }
+  total-label: { type: text, default: Total, doc: The label of the totals row }
+panels:
+  - id: table
+    kind: table
+    title: arg.title
+    rows: arg.rows
+    columns: "%{columns}"
+    search: arg.search
+    limit: arg.limit
+    totalLabel: arg.total-label

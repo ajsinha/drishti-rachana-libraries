@@ -1,0 +1,14 @@
+# Copyright (c) 2026 Ashutosh Sinha <ajsinha@gmail.com>. All rights reserved.
+# Drishti Rachana Libraries. Proprietary: see the LICENSE file at the root of this repository.
+# Synthetic demo content.
+rachana: 1
+sutra: status-badges-example
+version: 1
+libraries: [core@1]
+title: { id: "'Status badges'" }
+data:
+  order: { record: { STATE: Confirmed, APPROVAL: Pending } }
+panels:
+  - use: core/status-badges@1
+    with:
+      fields: [ { label: Status, bind: "$.order.STATE" }, { label: Approval, bind: "$.order.APPROVAL" } ]

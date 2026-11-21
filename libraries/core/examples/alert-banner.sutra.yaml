@@ -1,0 +1,22 @@
+# Copyright (c) 2026 Ashutosh Sinha <ajsinha@gmail.com>. All rights reserved.
+# Drishti Rachana Libraries. Proprietary: see the LICENSE file at the root of this repository.
+# Synthetic demo content.
+rachana: 1
+sutra: alert-banner-example
+version: 1
+libraries: [core@1]
+title: { id: "'Alert banner'" }
+data:
+  limit: { record: { USED: 11200000, LIMIT: 10000000 } }
+panels:
+  - use: core/alert-banner@1
+    as: over
+    with:
+      show: "$.limit.USED > $.limit.LIMIT"
+      label: Limit breached
+      text: Used is above the limit; reduce exposure or ask for an increase
+  - use: core/alert-banner@1
+    as: quiet
+    with:
+      show: "$.limit.USED > 2 * $.limit.LIMIT"
+      text: Far over the limit

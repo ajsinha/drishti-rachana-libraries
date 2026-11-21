@@ -1,0 +1,34 @@
+# Copyright (c) 2026 Ashutosh Sinha <ajsinha@gmail.com>. All rights reserved.
+# Drishti Rachana Libraries. Proprietary: see the LICENSE file at the root of this repository.
+rachana: 1
+fragment: donut-breakdown
+version: 1
+doc:
+  summary: The shares of a whole as a donut.
+  description: >-
+    One row per slice with a label and a positive value. Rows are drawn in the order given; keep the number of slices
+    small (group the tail into one row upstream). A click on a slice raises an event with its label and value.
+  category: charts
+  tags: [donut, share, mix]
+params:
+  rows:
+    type: table
+    required: true
+    doc: One row per slice
+    columns:
+      label: { type: text,   doc: The slice's label }
+      value: { type: number, doc: The slice's value }
+  title: { type: text, default: Mix, doc: The panel's title }
+  fmt:   { type: format, default: amount0, doc: How the values are written }
+emits:
+  - { name: slice, payload: { label: text, value: number }, doc: A slice was chosen }
+panels:
+  - id: donut
+    kind: hbar
+    shape: donut
+    title: arg.title
+    rows: arg.rows
+    label: label
+    value: value
+    fmt: "%{fmt}"
+    emits: [ { name: slice, on: bar-click, payload: { label: "@.label", value: "@.value" } } ]

@@ -1,0 +1,19 @@
+# Copyright (c) 2026 Ashutosh Sinha <ajsinha@gmail.com>. All rights reserved.
+# Drishti Rachana Libraries. Proprietary: see the LICENSE file at the root of this repository.
+rachana: 1
+fragment: source-note
+version: 1
+doc:
+  summary: "The foot of a screen over published data: publisher, dataset, retrieval date, licence."
+  description: One line of provenance. Leave out what you do not have; the line closes up.
+  category: records
+  tags: [source, provenance, footer]
+params:
+  publisher: { type: text, required: true, doc: Who published the data }
+  dataset:   { type: text, optional: true, doc: The dataset or table }
+  retrieved: { type: text, optional: true, doc: "The day it was retrieved, as you want it written" }
+  licence:   { type: text, optional: true, doc: The licence it is published under }
+panels:
+  - id: source
+    kind: markdown
+    text: "Source: ${arg.publisher}${is_blank(arg.dataset) ? '' : ', ' + arg.dataset}.${is_blank(arg.retrieved) ? '' : ' Retrieved ' + arg.retrieved + '.'}${is_blank(arg.licence) ? '' : ' Licence: ' + arg.licence + '.'}"

@@ -1,0 +1,18 @@
+# Copyright (c) 2026 Ashutosh Sinha <ajsinha@gmail.com>. All rights reserved.
+# Drishti Rachana Libraries. Proprietary: see the LICENSE file at the root of this repository.
+# Synthetic demo content.
+rachana: 1
+sutra: record-card-example
+version: 1
+libraries: [core@1]
+title: { id: "'Record card'" }
+data:
+  company: { record: { NAME: Alder Ltd, SECTOR: Furniture, FOUNDED: 1998, STAFF: 1250, STATE: Active } }
+panels:
+  - use: core/record-card@1
+    with:
+      record: "{name: $.company.NAME, subtitle: $.company.SECTOR, status: $.company.STATE, FOUNDED: $.company.FOUNDED, STAFF: $.company.STAFF}"
+      facts: [ { label: Founded, bind: "@.FOUNDED" }, { label: Employees, bind: "@.STAFF", fmt: amount0 } ]
+    slots:
+      footer:
+        - { id: remark, kind: markdown, text: Synthetic company }

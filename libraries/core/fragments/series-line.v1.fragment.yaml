@@ -1,0 +1,35 @@
+# Copyright (c) 2026 Ashutosh Sinha <ajsinha@gmail.com>. All rights reserved.
+# Drishti Rachana Libraries. Proprietary: see the LICENSE file at the root of this repository.
+rachana: 1
+fragment: series-line
+version: 1
+doc:
+  summary: "A line of one series: x along the bottom, y up the side."
+  description: Rows in x order. Mark one x value to draw a vertical marker (a date, a threshold).
+  category: charts
+  tags: [line, series, trend]
+params:
+  rows:
+    type: table
+    required: true
+    doc: One row per point, in x order
+    live: ok
+    columns:
+      x: { doc: "The position along the bottom: a date, a number or a label" }
+      y: { type: number, doc: The value up the side }
+  title: { type: text, default: Series, doc: The panel's title }
+  fmt:   { type: format, default: amount2, doc: How the values are written }
+  unit:  { type: text, default: "", doc: The unit, written beside the values }
+  step:  { type: boolean, default: false, doc: Whether the line steps between points instead of joining them }
+  mark:  { type: text, optional: true, doc: An x value to mark }
+panels:
+  - id: line
+    kind: line
+    title: arg.title
+    rows: arg.rows
+    x: x
+    y: y
+    fmt: "%{fmt}"
+    unit: arg.unit
+    step: arg.step
+    mark: "coalesce(arg.mark, '')"

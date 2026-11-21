@@ -1,0 +1,24 @@
+# Copyright (c) 2026 Ashutosh Sinha <ajsinha@gmail.com>. All rights reserved.
+# Drishti Rachana Libraries. Proprietary: see the LICENSE file at the root of this repository.
+# Synthetic demo content.
+rachana: 1
+sutra: drill-table-example
+version: 1
+libraries: [core@1]
+title: { id: "'Drill table'" }
+data:
+  sales:
+    rows:
+      - { REGION: Europe, COUNTRY: France, REVENUE: 120 }
+      - { REGION: Europe, COUNTRY: Spain, REVENUE: 80 }
+      - { REGION: Asia, COUNTRY: Japan, REVENUE: 200 }
+panels:
+  - use: core/drill-table@1
+    with:
+      title: Sales
+      rows: $.sales
+      levels: [REGION, COUNTRY]
+      columns:
+        - { label: Region, bind: "@.REGION" }
+        - { label: Country, bind: "@.COUNTRY" }
+        - { label: Revenue, bind: "@.REVENUE", fmt: amount0, total: true }

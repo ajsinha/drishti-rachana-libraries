@@ -1,0 +1,20 @@
+# Copyright (c) 2026 Ashutosh Sinha <ajsinha@gmail.com>. All rights reserved.
+# Drishti Rachana Libraries. Proprietary: see the LICENSE file at the root of this repository.
+# Synthetic demo content.
+rachana: 1
+sutra: measure-table-example
+version: 1
+libraries: [core@1]
+title: { id: "'Measure table'" }
+data:
+  by_region:
+    rows: [ { REGION: North, REVENUE: 1200, GROWTH: 0.05 }, { REGION: South, REVENUE: 800, GROWTH: -0.02 } ]
+panels:
+  - use: core/measure-table@1
+    with:
+      title: By region
+      rows: { from: $.by_region, columns: { name: REGION, first: REVENUE, second: GROWTH } }
+      name-label: Region
+      first-label: Revenue
+      second-label: Growth
+      second-fmt: pct2

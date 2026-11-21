@@ -1,0 +1,18 @@
+# Copyright (c) 2026 Ashutosh Sinha <ajsinha@gmail.com>. All rights reserved.
+# Drishti Rachana Libraries. Proprietary: see the LICENSE file at the root of this repository.
+rachana: 1
+fragment: status-badges
+version: 1
+doc:
+  summary: A short row of named states, each toned by its value.
+  description: >-
+    Each field is a label and the expression that gives its value (a word such as Active or Late). The painter tones
+    each by its meaning. Use it at the head of a record screen.
+  category: figures
+  tags: [status, badge, state]
+params:
+  fields: { type: columns, required: true, doc: "The states: a list of { label, bind } where bind reads the caller's own data" }
+panels:
+  - id: badges
+    kind: status
+    fields: "%{fields}"

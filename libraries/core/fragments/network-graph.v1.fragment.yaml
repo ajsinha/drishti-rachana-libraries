@@ -1,0 +1,40 @@
+# Copyright (c) 2026 Ashutosh Sinha <ajsinha@gmail.com>. All rights reserved.
+# Drishti Rachana Libraries. Proprietary: see the LICENSE file at the root of this repository.
+rachana: 1
+fragment: network-graph
+version: 1
+doc:
+  summary: "Nodes and edges: who is connected to whom, grouped by colour."
+  description: One row per node and one row per edge. A group colours the nodes. At most 2,000 of each.
+  category: charts
+  tags: [graph, network, relationships]
+params:
+  nodes:
+    type: table
+    required: true
+    doc: One row per node
+    max-rows: 2000
+    columns:
+      id:    { type: text, doc: The node's id }
+      label: { type: text, doc: The node's name }
+      group: { type: text, optional: true, doc: The group that colours the node }
+  edges:
+    type: table
+    required: true
+    doc: One row per edge
+    max-rows: 2000
+    columns:
+      from:  { type: text, doc: The id of the node the edge starts at }
+      to:    { type: text, doc: The id of the node the edge ends at }
+      label: { type: text, optional: true, doc: The edge's name }
+  title:  { type: text, default: Network, doc: The panel's title }
+  layout: { type: enum, options: [force, layered, radial], default: force, doc: How the nodes are laid out }
+panels:
+  - id: graph
+    kind: graph
+    title: arg.title
+    nodes: "map(arg.nodes, {id: @.id, label: @.label, group: @.group})"
+    edges: "map(arg.edges, {from: @.from, to: @.to, label: @.label})"
+    label: label
+    group: group
+    layout: "%{layout}"

@@ -1,0 +1,23 @@
+# Copyright (c) 2026 Ashutosh Sinha <ajsinha@gmail.com>. All rights reserved.
+# Drishti Rachana Libraries. Proprietary: see the LICENSE file at the root of this repository.
+rachana: 1
+fragment: freshness-badge
+version: 1
+doc:
+  summary: How old the data is, and whether it is older than it should be.
+  description: >-
+    The day the data was loaded, its age in days against the business day, and a Fresh or Stale word. Use it at the
+    foot of a screen over data that is loaded on a schedule.
+  category: states
+  tags: [freshness, as-of, staleness]
+params:
+  as-of:      { type: date, required: true, doc: The day the data was loaded or published }
+  stale-days: { type: integer, default: 1, min: 0, max: 3650, doc: The age in days beyond which the data is stale }
+  label:      { type: text, default: As of, doc: What the date is called }
+panels:
+  - id: freshness
+    kind: status
+    fields:
+      - { label: arg.label, bind: "arg.as-of" }
+      - { label: Age, bind: "days_between(arg.as-of, today()) + ' days'" }
+      - { label: Data, bind: "days_between(arg.as-of, today()) > arg.stale-days ? 'Stale' : 'Fresh'" }

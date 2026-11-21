@@ -1,0 +1,16 @@
+# Copyright (c) 2026 Ashutosh Sinha <ajsinha@gmail.com>. All rights reserved.
+# Drishti Rachana Libraries. Proprietary: see the LICENSE file at the root of this repository.
+# Synthetic demo content.
+rachana: 1
+sutra: key-figure-example
+version: 1
+libraries: [core@1]
+title: { id: "'Key figure'" }
+data:
+  sales: { rows: [ { REGION: North, REVENUE_USD: 1200 }, { REGION: South, REVENUE_USD: 800 } ] }
+panels:
+  - use: core/key-figure@1
+    with: { value: "sum($.sales, 'REVENUE_USD')", label: Total revenue, fmt: amount0 }
+  - use: core/key-figure@1
+    as: against-target
+    with: { value: "sum($.sales, 'REVENUE_USD')", label: Revenue, fmt: amount0, caption: Against plan, delta: 150, delta-fmt: signed0, tone: sign }

@@ -1,0 +1,16 @@
+# Copyright (c) 2026 Ashutosh Sinha <ajsinha@gmail.com>. All rights reserved.
+# Drishti Rachana Libraries. Proprietary: see the LICENSE file at the root of this repository.
+# Synthetic demo content.
+rachana: 1
+sutra: field-list-example
+version: 1
+libraries: [core@1]
+title: { id: "'Field list'" }
+data:
+  customer: { record: { NAME: Alder Ltd, SEGMENT: Retail, SINCE: 2019, LIMIT_USD: 250000 } }
+panels:
+  - use: core/field-list@1
+    with:
+      title: Customer
+      record: $.customer
+      fields: [ { label: Name, bind: "@.NAME" }, { label: Segment, bind: "@.SEGMENT" }, { label: Limit, bind: "@.LIMIT_USD", fmt: amount0 } ]

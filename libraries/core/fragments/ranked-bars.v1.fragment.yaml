@@ -1,0 +1,35 @@
+# Copyright (c) 2026 Ashutosh Sinha <ajsinha@gmail.com>. All rights reserved.
+# Drishti Rachana Libraries. Proprietary: see the LICENSE file at the root of this repository.
+rachana: 1
+fragment: ranked-bars
+version: 1
+doc:
+  summary: One horizontal bar a row, labelled and sized by a value.
+  description: >-
+    Rows are drawn in the order given: sort them largest first to rank them. A click on a bar raises an event with its
+    label and value.
+  category: charts
+  tags: [bars, ranking, breakdown]
+params:
+  rows:
+    type: table
+    required: true
+    doc: One row per bar
+    columns:
+      label: { type: text,   doc: The bar's label }
+      value: { type: number, doc: The bar's value }
+  title: { type: text, default: Ranking, doc: The panel's title }
+  fmt:   { type: format, default: amount0, doc: How the values are written }
+  tone:  { type: enum, options: [accent, sign, ok, warn, bad, pos, neg], default: accent, doc: How the bars are toned }
+emits:
+  - { name: bar, payload: { label: text, value: number }, doc: A bar was chosen }
+panels:
+  - id: bars
+    kind: hbar
+    title: arg.title
+    rows: arg.rows
+    label: label
+    value: value
+    fmt: "%{fmt}"
+    tone: "%{tone}"
+    emits: [ { name: bar, on: bar-click, payload: { label: "@.label", value: "@.value" } } ]

@@ -1,0 +1,21 @@
+# Copyright (c) 2026 Ashutosh Sinha <ajsinha@gmail.com>. All rights reserved.
+# Drishti Rachana Libraries. Proprietary: see the LICENSE file at the root of this repository.
+# Synthetic demo content.
+rachana: 1
+sutra: steps-waterfall-example
+version: 1
+libraries: [core@1]
+title: { id: "'Steps waterfall'" }
+data:
+  bridge:
+    rows:
+      - { STEP: Budget, AMOUNT: 1000, IS_TOTAL: true }
+      - { STEP: Volume, AMOUNT: 120, IS_TOTAL: false }
+      - { STEP: Price, AMOUNT: -45, IS_TOTAL: false }
+      - { STEP: Costs, AMOUNT: -80, IS_TOTAL: false }
+panels:
+  - use: core/steps-waterfall@1
+    with:
+      title: Budget to actual
+      rows: { from: $.bridge, columns: { label: STEP, value: AMOUNT, total: IS_TOTAL } }
+      sum-label: Actual

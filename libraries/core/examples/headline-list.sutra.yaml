@@ -1,0 +1,19 @@
+# Copyright (c) 2026 Ashutosh Sinha <ajsinha@gmail.com>. All rights reserved.
+# Drishti Rachana Libraries. Proprietary: see the LICENSE file at the root of this repository.
+# Synthetic demo content.
+rachana: 1
+sutra: headline-list-example
+version: 1
+libraries: [core@1]
+title: { id: "'Headline list'" }
+data:
+  news:
+    rows:
+      - { PUBLISHED: "2026-01-14", TITLE: New product range launched, PUBLISHER: Example Wire, URL: "https://example.org/b" }
+      - { PUBLISHED: "2026-01-12", TITLE: Quarterly results announced, PUBLISHER: Example Wire, URL: "https://example.org/a" }
+panels:
+  - use: core/headline-list@1
+    as: news
+    with:
+      title: Announcements
+      rows: { from: $.news, columns: { date: PUBLISHED, headline: TITLE, source: PUBLISHER, link: URL } }

@@ -1,0 +1,38 @@
+# Copyright (c) 2026 Ashutosh Sinha <ajsinha@gmail.com>. All rights reserved.
+# Drishti Rachana Libraries. Proprietary: see the LICENSE file at the root of this repository.
+rachana: 1
+fragment: headline-list
+version: 1
+doc:
+  summary: "Dated items with a headline, a source and a link: news, announcements, filings."
+  description: Rows are shown in the order given, newest first. A click on an item raises an event with its link, for the screen to open as it sees fit.
+  category: tables
+  tags: [news, headlines, list]
+params:
+  rows:
+    type: table
+    required: true
+    doc: One row per item
+    live: ok
+    columns:
+      date:     { type: date, doc: When the item was published }
+      headline: { type: text, doc: The headline }
+      source:   { type: text, optional: true, doc: Who published it }
+      link:     { type: text, optional: true, doc: Where it can be read }
+  title:    { type: text, default: Headlines, doc: The panel's title }
+  limit:    { type: integer, default: 20, min: 1, max: 500, doc: The most items shown }
+  date-fmt: { type: format, default: date, doc: How the date is written }
+emits:
+  - { name: open, payload: { link: text }, doc: An item was chosen }
+panels:
+  - id: list
+    kind: table
+    title: arg.title
+    rows: arg.rows
+    limit: arg.limit
+    search: true
+    columns:
+      - { label: Date, bind: "@.date", fmt: "%{date-fmt}" }
+      - { label: Headline, bind: "@.headline" }
+      - { label: Source, bind: "@.source" }
+    emits: [ { name: open, on: row-click, payload: { link: "@.link" } } ]

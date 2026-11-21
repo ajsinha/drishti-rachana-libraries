@@ -1,0 +1,33 @@
+# Copyright (c) 2026 Ashutosh Sinha <ajsinha@gmail.com>. All rights reserved.
+# Drishti Rachana Libraries. Proprietary: see the LICENSE file at the root of this repository.
+rachana: 1
+fragment: tree-table
+version: 1
+doc:
+  summary: A hierarchy given as rows with a parent column, shown as an expanding table with measures per node.
+  description: >-
+    One row per node with its id, its parent's id (empty at the root) and its name. Every other number column of the
+    rows is a measure, added up by a node no row names; shape the rows first (select the columns you want) to choose them.
+  category: tables
+  tags: [tree, hierarchy, table]
+params:
+  rows:
+    type: table
+    required: true
+    doc: One row per node
+    columns:
+      id:     { type: text, doc: The node's id }
+      parent: { type: text, doc: The parent node's id; empty at the root }
+      name:   { type: text, doc: The node's name }
+  title:    { type: text, default: Hierarchy, doc: The panel's title }
+  open:     { type: integer, default: 1, min: 0, max: 8, doc: How many levels start open }
+panels:
+  - id: tree
+    kind: tree
+    title: arg.title
+    rows: arg.rows
+    node: id
+    parent: parent
+    label: name
+    mode: grid
+    open: arg.open

@@ -1,0 +1,18 @@
+# Copyright (c) 2026 Ashutosh Sinha <ajsinha@gmail.com>. All rights reserved.
+# Drishti Rachana Libraries. Proprietary: see the LICENSE file at the root of this repository.
+# Synthetic demo content.
+rachana: 1
+sutra: ranked-bars-example
+version: 1
+libraries: [core@1]
+title: { id: "'Ranked bars'" }
+data:
+  sales:
+    rows: [ { REGION: North, REVENUE: 1200 }, { REGION: West, REVENUE: 950 }, { REGION: South, REVENUE: 800 } ]
+panels:
+  - use: core/ranked-bars@1
+    as: regions
+    with:
+      title: Revenue by region
+      rows: { from: $.sales, columns: { label: REGION, value: REVENUE } }
+  - { id: picked, kind: markdown, text: "Region ${@regions.bar.label}", waits: regions-bars }

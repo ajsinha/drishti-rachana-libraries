@@ -1,0 +1,24 @@
+# Copyright (c) 2026 Ashutosh Sinha <ajsinha@gmail.com>. All rights reserved.
+# Drishti Rachana Libraries. Proprietary: see the LICENSE file at the root of this repository.
+rachana: 1
+fragment: gauge-figure
+version: 1
+doc:
+  summary: A value against a maximum as a gauge.
+  description: >-
+    The share of a maximum that is used, as a gauge with its figure. Pass the value and the maximum; the painter draws
+    the bands. For a limit with a history use a line chart beside it.
+  category: figures
+  tags: [gauge, utilisation, limit]
+params:
+  value: { type: number, required: true, doc: The amount used }
+  max:   { type: number, required: true, doc: The maximum the gauge runs to }
+  label: { type: text, default: Used, doc: What the gauge measures }
+  fmt:   { type: format, default: pct0, doc: How the figure is written }
+panels:
+  - id: gauge
+    kind: gauge
+    value: arg.value
+    max: arg.max
+    label: arg.label
+    fmt: "%{fmt}"

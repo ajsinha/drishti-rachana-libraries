@@ -1,0 +1,44 @@
+# Copyright (c) 2026 Ashutosh Sinha <ajsinha@gmail.com>. All rights reserved.
+# Drishti Rachana Libraries. Proprietary: see the LICENSE file at the root of this repository.
+rachana: 1
+fragment: row-picker
+version: 1
+doc:
+  summary: A compact table whose rows, clicked, raise an event with the row's id - the master of a master-detail screen.
+  description: >-
+    Give it one row per item with an id and a name, and optionally a type, an amount and a date. Read the chosen id on
+    your screen as @<as>.select.id (the use's as: names the instance).
+  category: tables
+  tags: [table, picker, master, select]
+params:
+  rows:
+    type: table
+    required: true
+    doc: One row per item
+    key: required
+    columns:
+      id:     { type: text, doc: The item's id; the event carries it }
+      name:   { type: text, doc: The item's name }
+      type:   { type: text, optional: true, doc: A kind or category }
+      amount: { type: number, optional: true, doc: An amount }
+      date:   { type: date, optional: true, doc: A date }
+  title:        { type: text, default: Pick one, doc: The panel's title }
+  name-label:   { type: text, default: Name, doc: Heading of the name column }
+  type-label:   { type: text, default: Type, doc: Heading of the type column }
+  amount-label: { type: text, default: Amount, doc: Heading of the amount column }
+  date-label:   { type: text, default: Date, doc: Heading of the date column }
+  amount-fmt:   { type: format, default: amount0, doc: How the amount is written }
+emits:
+  - { name: select, payload: { id: text }, doc: A row was chosen }
+panels:
+  - id: picker
+    kind: table
+    title: arg.title
+    rows: arg.rows
+    search: true
+    columns:
+      - { label: arg.name-label, bind: "@.name" }
+      - { label: arg.type-label, bind: "@.type" }
+      - { label: arg.amount-label, bind: "@.amount", fmt: "%{amount-fmt}" }
+      - { label: arg.date-label, bind: "@.date", fmt: date }
+    emits: [ { name: select, on: row-click, payload: { id: "@.id" } } ]

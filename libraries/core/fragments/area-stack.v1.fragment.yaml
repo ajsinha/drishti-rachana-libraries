@@ -1,0 +1,34 @@
+# Copyright (c) 2026 Ashutosh Sinha <ajsinha@gmail.com>. All rights reserved.
+# Drishti Rachana Libraries. Proprietary: see the LICENSE file at the root of this repository.
+rachana: 1
+fragment: area-stack
+version: 1
+doc:
+  summary: Series stacked as areas over time, with an optional horizontal limit.
+  description: >-
+    One row per x with one column per series (wide form). Name the columns to stack, in order, each with its label. Give a limit to draw a
+    horizontal line across the stack.
+  category: charts
+  tags: [area, stack, limit, usage]
+params:
+  rows:
+    type: table
+    required: true
+    doc: One row per x, one column per series
+    columns:
+      x: { doc: "The position along the bottom: a date, a number or a label" }
+  series:      { type: columns, required: true, doc: "The columns to stack, in order: a list of { label, value } where value is your own column name" }
+  title:       { type: text, default: Stacked areas, doc: The panel's title }
+  limit:       { type: number, optional: true, doc: A horizontal limit drawn across the stack }
+  limit-label: { type: text, default: Limit, doc: What the limit is called }
+  unit:        { type: text, default: "", doc: The unit, written beside the values }
+panels:
+  - id: area
+    kind: area
+    title: arg.title
+    rows: arg.rows
+    x: x
+    series: "%{series}"
+    limit: arg.limit
+    limitLabel: arg.limit-label
+    unit: arg.unit

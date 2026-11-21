@@ -1,0 +1,18 @@
+# Copyright (c) 2026 Ashutosh Sinha <ajsinha@gmail.com>. All rights reserved.
+# Drishti Rachana Libraries. Proprietary: see the LICENSE file at the root of this repository.
+# Synthetic demo content.
+rachana: 1
+sutra: event-timeline-example
+version: 1
+libraries: [core@1]
+title: { id: "'Event timeline'" }
+data:
+  life:
+    rows:
+      - { EVENT_DATE: "2026-01-12", WHAT: Amended, NOTE: Notional increased, OUTCOME: Confirmed }
+      - { EVENT_DATE: "2026-01-05", WHAT: Created, NOTE: Booked by the desk, OUTCOME: Confirmed }
+panels:
+  - use: core/event-timeline@1
+    with:
+      title: Trade history
+      rows: { from: $.life, columns: { date: EVENT_DATE, label: WHAT, detail: NOTE, status: OUTCOME } }

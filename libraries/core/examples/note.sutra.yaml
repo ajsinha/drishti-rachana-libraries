@@ -1,0 +1,11 @@
+# Copyright (c) 2026 Ashutosh Sinha <ajsinha@gmail.com>. All rights reserved.
+# Drishti Rachana Libraries. Proprietary: see the LICENSE file at the root of this repository.
+# Synthetic demo content.
+rachana: 1
+sutra: note-example
+version: 1
+libraries: [core@1]
+title: { id: "'Note'" }
+panels:
+  - use: core/note@1
+    with: { text: "Gains are positive. Figures are in thousands." }

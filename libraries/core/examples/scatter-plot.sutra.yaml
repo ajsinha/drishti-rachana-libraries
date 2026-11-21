@@ -1,0 +1,24 @@
+# Copyright (c) 2026 Ashutosh Sinha <ajsinha@gmail.com>. All rights reserved.
+# Drishti Rachana Libraries. Proprietary: see the LICENSE file at the root of this repository.
+# Synthetic demo content.
+rachana: 1
+sutra: scatter-plot-example
+version: 1
+libraries: [core@1]
+title: { id: "'Scatter plot'" }
+data:
+  products:
+    rows:
+      - { NAME: Alder Desk, PRICE: 120, UNITS_SOLD: 340, RANGE: Study }
+      - { NAME: Birch Chair, PRICE: 80, UNITS_SOLD: 510, RANGE: Study }
+      - { NAME: Cedar Shelf, PRICE: 150, UNITS_SOLD: 220, RANGE: Living }
+      - { NAME: Dune Lamp, PRICE: 45, UNITS_SOLD: 700, RANGE: Living }
+panels:
+  - use: core/scatter-plot@1
+    with:
+      title: Price against units
+      rows: { from: $.products, columns: { x: PRICE, y: UNITS_SOLD, label: NAME, group: RANGE } }
+      x-label: Price
+      y-label: Units sold
+      x-fmt: amount0
+      fmt: amount0

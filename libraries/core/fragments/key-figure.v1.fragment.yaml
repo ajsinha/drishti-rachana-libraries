@@ -1,0 +1,30 @@
+# Copyright (c) 2026 Ashutosh Sinha <ajsinha@gmail.com>. All rights reserved.
+# Drishti Rachana Libraries. Proprietary: see the LICENSE file at the root of this repository.
+rachana: 1
+fragment: key-figure
+version: 1
+doc:
+  summary: One headline number, large, with its label and a caption.
+  description: >-
+    The figure a reader looks for first. Give the value, a label, an optional caption and an optional change against
+    a reference. For a row of figures use several uses; for a figure with a history use a chart beside it.
+  category: figures
+  tags: [figure, metric, kpi]
+params:
+  value:     { type: number, required: true, doc: The figure }
+  label:     { type: text, default: Value, doc: What the figure is }
+  fmt:       { type: format, default: amount2, doc: How the figure is written }
+  caption:   { type: text, optional: true, doc: A line under the figure }
+  delta:     { type: number, optional: true, doc: The change against a reference, written beside the figure }
+  delta-fmt: { type: format, default: signed2, doc: How the change is written }
+  tone:      { type: enum, options: [sign, accent, ok, warn, bad, pos, neg], default: accent, doc: "How the figure is toned: by its sign, or one fixed tone" }
+panels:
+  - id: figure
+    kind: metric
+    label: arg.label
+    value: arg.value
+    fmt: "%{fmt}"
+    tone: "%{tone}"
+    caption: "${coalesce(arg.caption, '')}"
+    delta: arg.delta
+    deltaFmt: "%{delta-fmt}"

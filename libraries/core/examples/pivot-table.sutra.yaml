@@ -1,0 +1,19 @@
+# Copyright (c) 2026 Ashutosh Sinha <ajsinha@gmail.com>. All rights reserved.
+# Drishti Rachana Libraries. Proprietary: see the LICENSE file at the root of this repository.
+# Synthetic demo content.
+rachana: 1
+sutra: pivot-table-example
+version: 1
+libraries: [core@1]
+title: { id: "'Pivot table'" }
+data:
+  sales:
+    rows:
+      - { REGION: North, QUARTER: Q1, REVENUE: 100 }
+      - { REGION: North, QUARTER: Q2, REVENUE: 120 }
+      - { REGION: South, QUARTER: Q1, REVENUE: 80 }
+      - { REGION: South, QUARTER: Q2, REVENUE: 95 }
+      - { REGION: South, QUARTER: Q2, REVENUE: 5 }
+panels:
+  - use: core/pivot-table@1
+    with: { title: Revenue, rows: $.sales, by: REGION, across: QUARTER, value: REVENUE, heat: true }

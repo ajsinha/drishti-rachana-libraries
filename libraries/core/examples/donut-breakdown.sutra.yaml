@@ -1,0 +1,16 @@
+# Copyright (c) 2026 Ashutosh Sinha <ajsinha@gmail.com>. All rights reserved.
+# Drishti Rachana Libraries. Proprietary: see the LICENSE file at the root of this repository.
+# Synthetic demo content.
+rachana: 1
+sutra: donut-breakdown-example
+version: 1
+libraries: [core@1]
+title: { id: "'Donut breakdown'" }
+data:
+  mix:
+    rows: [ { CHANNEL: Online, SALES: 620 }, { CHANNEL: Stores, SALES: 410 }, { CHANNEL: Partners, SALES: 170 } ]
+panels:
+  - use: core/donut-breakdown@1
+    with:
+      title: Sales by channel
+      rows: { from: $.mix, columns: { label: CHANNEL, value: SALES } }

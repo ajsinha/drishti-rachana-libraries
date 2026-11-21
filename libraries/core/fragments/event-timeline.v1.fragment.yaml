@@ -1,0 +1,31 @@
+# Copyright (c) 2026 Ashutosh Sinha <ajsinha@gmail.com>. All rights reserved.
+# Drishti Rachana Libraries. Proprietary: see the LICENSE file at the root of this repository.
+rachana: 1
+fragment: event-timeline
+version: 1
+doc:
+  summary: Dated events with a label, a detail line and a status.
+  description: One row per event, drawn in the order given. The status, when there is one, tones the event.
+  category: history
+  tags: [timeline, events, history]
+params:
+  rows:
+    type: table
+    required: true
+    doc: One row per event
+    columns:
+      date:   { type: date, doc: When it happened }
+      label:  { type: text, doc: What happened }
+      detail: { type: text, optional: true, doc: A line of detail }
+      status: { type: text, optional: true, doc: A status word that tones the event }
+  title: { type: text, default: History, doc: The panel's title }
+panels:
+  - id: timeline
+    kind: timeline
+    title: arg.title
+    rows: arg.rows
+    date: date
+    label: label
+    detail: detail
+    status: status
+    tone: status

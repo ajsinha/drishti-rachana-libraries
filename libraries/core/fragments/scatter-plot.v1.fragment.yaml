@@ -1,0 +1,41 @@
+# Copyright (c) 2026 Ashutosh Sinha <ajsinha@gmail.com>. All rights reserved.
+# Drishti Rachana Libraries. Proprietary: see the LICENSE file at the root of this repository.
+rachana: 1
+fragment: scatter-plot
+version: 1
+doc:
+  summary: Points by two measures, optionally sized, grouped by colour and labelled.
+  description: One row per point with an x and a y. A label names the point, a group colours it and a size scales it.
+  category: charts
+  tags: [scatter, correlation, bubble]
+params:
+  rows:
+    type: table
+    required: true
+    doc: One row per point
+    max-rows: 20000
+    columns:
+      x:     { type: number, doc: The position along the bottom }
+      y:     { type: number, doc: The position up the side }
+      label: { type: text, optional: true, doc: The point's name }
+      group: { type: text, optional: true, doc: The group that colours the point }
+      size:  { type: number, optional: true, doc: The size of the point }
+  title:   { type: text, default: Scatter, doc: The panel's title }
+  x-label: { type: text, required: true, doc: What x measures }
+  y-label: { type: text, required: true, doc: What y measures }
+  x-fmt:   { type: format, default: amount2, doc: How x is written }
+  fmt:     { type: format, default: amount2, doc: How y is written }
+panels:
+  - id: scatter
+    kind: scatter
+    title: arg.title
+    rows: arg.rows
+    x: x
+    y: y
+    label: label
+    group: group
+    size: size
+    xLabel: arg.x-label
+    yLabel: arg.y-label
+    xFmt: "%{x-fmt}"
+    fmt: "%{fmt}"

@@ -1,0 +1,17 @@
+# Copyright (c) 2026 Ashutosh Sinha <ajsinha@gmail.com>. All rights reserved.
+# Drishti Rachana Libraries. Proprietary: see the LICENSE file at the root of this repository.
+# Synthetic demo content.
+rachana: 1
+sutra: period-compare-example
+version: 1
+libraries: [core@1]
+title: { id: "'Period compare'" }
+data:
+  sales: { record: { MTD: 1320, MTD_LAST_YEAR: 1200, COST_MTD: 90, COST_LAST_YEAR: 80 } }
+panels:
+  - use: core/period-compare@1
+    as: revenue
+    with: { now: "$.sales.MTD", then: "$.sales.MTD_LAST_YEAR", label: Revenue, then-label: last year }
+  - use: core/period-compare@1
+    as: cost
+    with: { now: "$.sales.COST_MTD", then: "$.sales.COST_LAST_YEAR", label: Cost, then-label: last year, delta-tone: neg }

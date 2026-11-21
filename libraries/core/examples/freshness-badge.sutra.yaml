@@ -1,0 +1,17 @@
+# Copyright (c) 2026 Ashutosh Sinha <ajsinha@gmail.com>. All rights reserved.
+# Drishti Rachana Libraries. Proprietary: see the LICENSE file at the root of this repository.
+# Synthetic demo content.
+rachana: 1
+sutra: freshness-badge-example
+version: 1
+libraries: [core@1]
+title: { id: "'Freshness badge'" }
+data:
+  load: { record: { LOADED_ON: "2026-01-14" } }
+panels:
+  - use: core/freshness-badge@1
+    as: loaded
+    with: { as-of: "$.load.LOADED_ON", label: Loaded }
+  - use: core/freshness-badge@1
+    as: old
+    with: { as-of: "'2025-12-01'", stale-days: 7 }

@@ -1,0 +1,28 @@
+# Copyright (c) 2026 Ashutosh Sinha <ajsinha@gmail.com>. All rights reserved.
+# Drishti Rachana Libraries. Proprietary: see the LICENSE file at the root of this repository.
+# Synthetic demo content.
+rachana: 1
+sutra: area-stack-example
+version: 1
+libraries: [core@1]
+title: { id: "'Area stack'" }
+data:
+  usage:
+    rows:
+      - { DAY: "2026-01-01", COMPUTE: 40, STORAGE: 20, NETWORK: 10 }
+      - { DAY: "2026-01-02", COMPUTE: 45, STORAGE: 21, NETWORK: 12 }
+      - { DAY: "2026-01-03", COMPUTE: 52, STORAGE: 22, NETWORK: 11 }
+panels:
+  - use: core/area-stack@1
+    as: usage
+    with:
+      title: Usage
+      rows: { from: $.usage, columns: { x: DAY } }
+      series: [ { label: Compute, value: COMPUTE }, { label: Storage, value: STORAGE }, { label: Network, value: NETWORK } ]
+      limit: 90
+      limit-label: Budget
+  - use: core/area-stack@1
+    as: nolimit
+    with:
+      rows: { from: $.usage, columns: { x: DAY } }
+      series: [ { label: Compute, value: COMPUTE }, { label: Storage, value: STORAGE } ]

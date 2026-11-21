@@ -1,0 +1,39 @@
+# Copyright (c) 2026 Ashutosh Sinha <ajsinha@gmail.com>. All rights reserved.
+# Drishti Rachana Libraries. Proprietary: see the LICENSE file at the root of this repository.
+rachana: 1
+fragment: pivot-table
+version: 1
+doc:
+  summary: A cross-tabulation of one measure by a row field and a column field, with totals and an optional heat scale.
+  description: >-
+    Name the three columns of your own rows - the field down the side, the field across the top and the measure - and
+    how to add the measure up. The rows may be at any grain; the pivot adds them up.
+  category: tables
+  tags: [pivot, cross-tab, heat]
+params:
+  rows:
+    type: table
+    required: true
+    doc: Rows at any grain; the three fields named below are read from them
+    columns:
+      key: { type: text, optional: true, doc: "A key column, when the rows have one" }
+  by:     { type: id, required: true, doc: The column of your rows whose values run down the side }
+  across: { type: id, required: true, doc: The column of your rows whose values run across the top }
+  value:  { type: id, required: true, doc: The numeric column that is added up }
+  agg:    { type: enum, options: [sum, avg, min, max, count], default: sum, doc: How the measure is added up }
+  fmt:    { type: format, default: amount0, doc: How the measure is written }
+  heat:   { type: boolean, default: false, doc: Whether cells are shaded by size }
+  totals: { type: boolean, default: true, doc: Whether row and column totals are shown }
+  title:  { type: text, default: Cross-tab, doc: The panel's title }
+panels:
+  - id: pivot
+    kind: pivot
+    title: arg.title
+    rows: arg.rows
+    by: "%{by}"
+    across: "%{across}"
+    value: "%{value}"
+    agg: "%{agg}"
+    fmt: "%{fmt}"
+    heat: arg.heat
+    totals: arg.totals

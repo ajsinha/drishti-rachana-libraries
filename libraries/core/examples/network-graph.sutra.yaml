@@ -1,0 +1,24 @@
+# Copyright (c) 2026 Ashutosh Sinha <ajsinha@gmail.com>. All rights reserved.
+# Drishti Rachana Libraries. Proprietary: see the LICENSE file at the root of this repository.
+# Synthetic demo content.
+rachana: 1
+sutra: network-graph-example
+version: 1
+libraries: [core@1]
+title: { id: "'Network graph'" }
+data:
+  entities:
+    rows:
+      - { ENTITY_ID: P, ENTITY_NAME: Parent plc, KIND: Holding }
+      - { ENTITY_ID: A, ENTITY_NAME: Alder Ltd, KIND: Operating }
+      - { ENTITY_ID: B, ENTITY_NAME: Birch Co, KIND: Operating }
+  holdings:
+    rows:
+      - { OWNER: P, OWNED: A, SHARE: 100% }
+      - { OWNER: P, OWNED: B, SHARE: 60% }
+panels:
+  - use: core/network-graph@1
+    with:
+      title: Ownership
+      nodes: { from: $.entities, columns: { id: ENTITY_ID, label: ENTITY_NAME, group: KIND } }
+      edges: { from: $.holdings, columns: { from: OWNER, to: OWNED, label: SHARE } }

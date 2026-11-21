@@ -1,0 +1,22 @@
+# Copyright (c) 2026 Ashutosh Sinha <ajsinha@gmail.com>. All rights reserved.
+# Drishti Rachana Libraries. Proprietary: see the LICENSE file at the root of this repository.
+# Synthetic demo content.
+rachana: 1
+sutra: series-line-example
+version: 1
+libraries: [core@1]
+title: { id: "'Series line'" }
+data:
+  history:
+    rows:
+      - { PX_DATE: "2026-01-02", CLOSE: 101.5 }
+      - { PX_DATE: "2026-01-05", CLOSE: 103.2 }
+      - { PX_DATE: "2026-01-06", CLOSE: 102.1 }
+      - { PX_DATE: "2026-01-07", CLOSE: 105.8 }
+panels:
+  - use: core/series-line@1
+    with:
+      title: Price
+      rows: { from: $.history, columns: { x: PX_DATE, y: CLOSE } }
+      fmt: price2
+      mark: "2026-01-06"
